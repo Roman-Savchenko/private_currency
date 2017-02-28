@@ -1,5 +1,9 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-   {{ result }}
+   {% if response|length == 0 %}
+      <p>Извините данных за это число нет</p>
+      {% else %}
+         <p>На {{ response. chooseDate}} при курсе {{ response.result }} сумма составит {{ response.sum }}</p>
+         {% endif %}
 {% endblock %}
