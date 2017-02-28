@@ -12,7 +12,6 @@ use Silex\Provider\LocaleServiceProvider;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 
 use CurrencyManager\CurrencyManager;
-use DollarAndEuro\DollarAndEuro;
 
 $app = new Application();
 $app->register(new ServiceControllerServiceProvider());
@@ -25,7 +24,7 @@ $app->register(new Silex\Provider\TranslationServiceProvider(), array(
 ));
 $app->register(new LocaleServiceProvider());
 $app['doctrine'] = function($app) {
-    return new CurrencyManager($app, new DollarAndEuro());
+    return new CurrencyManager($app);
 };
 $app['mysql_config'] =
     [

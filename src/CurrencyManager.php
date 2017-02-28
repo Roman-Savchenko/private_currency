@@ -16,13 +16,9 @@ class CurrencyManager
     /** @var  Registry $doctrine */
     protected $app;
 
-    /** @var  DollarAndEuro $currency */
-    protected $currency;
-
-    public function __construct(Registry $doctrine, DollarAndEuro $currency)
+    public function __construct(Registry $doctrine)
     {
         $this->doctrine = $doctrine;
-        $this->currency = $currency;
     }
 
     /**
@@ -48,9 +44,10 @@ class CurrencyManager
         foreach ($csvFile as $key => $value) {
             $explode = explode(" ", $value);
             if (is_array($explode)) {
-                $this->currency->setCourse($explode['0']);
-                $this->currency->setDate(new \DateTime($explode[1]));
-                $em->persist($this->currency);
+                $currency = new DollarAndEuro();
+                $currency->setCourse($explode['0']);
+                $currency->setDate(new \DateTime($explode[1]));
+                $em->persist($currency);
             }
         }
         $em->flush();
@@ -71,9 +68,10 @@ class CurrencyManager
             if (is_array($explode) && isset($explore[1])) {
                 $currentDate = strtotime(date($explode[1]));
                 if ($currentDate > $maxDate) {
-                    $this->currency->setCourse($explode['0']);
-                    $this->currency->setDate(new \DateTime($explode[1]));
-                    $em->persist($this->currency);
+                    $currency = new DollarAndEuro();
+                    $currency->setCourse($explode['0']);
+                    $currency->setDate(new \DateTime($explode[1]));
+                    $em->persist($currency);
                 }
             }
         }
